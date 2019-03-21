@@ -40,39 +40,6 @@ formFields = {
 	}
 };
 
-function createField(f) {
-	var field = document.createElement(f.tag);
-	var attr;
-	for (attr in f.attrs) {
-		field.setAttribute(attr, f.attrs[attr]);
-	}
-
-	return field;
-}
-
-function createForm(method, action, fields) {
-	var form = document.createElement('form');
-	form.setAttribute('method', method);
-	form.setAttribute('action', action);
-	var field;
-	for (field in fields) {
-		form.appendChild(createField(fields[field]));
-	}
-
-	var submit = document.createElement('input');
-	submit.setAttribute('type', 'submit');
-	submit.setAttribute('value', 'Invia');
-
-	form.appendChild(submit);
-
-	form.addEventListener('submit', function(e) {
-		e.preventDefault();
-		submitHandler(form);
-	});
-
-	document.getElementsByTagName('body')[0].appendChild(form);
-}
-
 function submitHandler(form) {
 	var method = form.getAttribute('method');
 	var url = form.getAttribute('action');
@@ -107,4 +74,8 @@ function loadHandler(form) {
 	form.reset();
 }
 
-createForm('POST', apiUrl, formFields);
+FormModule.setFields(formFields);
+var form = FormModule.createForm('POST', apiUrl);
+FormModule.onSubmit(submitHandler);
+
+document.getElementsByTagName('body')[0].appendChild(form);
