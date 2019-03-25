@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <h1>Seleziona città</h1>
+        <select id="city-selector">
+            <option>Loading...</option>
+        </select>
+        <table id="city-table">
+        </table>
+    </body>
+    <script src="index.js"></script>
+    <script>
+        window.addEventListener('load', () => {
+            document.getElementById('city-selector').addEventListener('change', e => {
+                const select = e.target;
+                const city = select.options[select.selectedIndex].value;
+                fetchCity(city);
+            });
+        });
+    </script>
+</html>

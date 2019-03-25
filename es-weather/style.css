@@ -1,0 +1,19 @@
+table#city-table {
+    margin-top: 50px;
+    border-spacing: 0;
+}
+
+table#city-table tr > th,
+table#city-table tr > td{
+    padding: 10px;
+    border: 1px solid #000;
+}
+table#city-table tr > th{
+    background-color: #4b4b4b;
+    color: #fff;
+}
+
+table#city-table tr.day > td{
+    font-weight: bold;
+    background-color: #cacaca;
+}
