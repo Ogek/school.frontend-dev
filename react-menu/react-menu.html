@@ -13,6 +13,7 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     
     <script type="text/babel">
+
         const MenuItem  = props => (
             <li onClick={() => props.clickHandler(props.title)}>{props.title}</li>  
         );
@@ -42,13 +43,12 @@
             render() {
                 const {choices} = this.props;
                 return (
-                    <div>
+                    <React.Fragment>
                         {choices.map((el, i) => {
-                            //return <li key={i} onClick={this.onItemClick}>{el}</li>
                             return <MenuItem key={i} title={el} clickHandler={this.onItemClick}/>
                         })}
                         <label>Current Element: {this.currentChoice()}</label>
-                    </div>
+                    </React.Fragment>
                     
                 )
             }
