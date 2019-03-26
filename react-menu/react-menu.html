@@ -8,14 +8,14 @@
         </div>
     </body>
 
-    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     
     <script type="text/babel">
 
-        const MenuItem  = props => (
-            <li onClick={() => props.clickHandler(props.title)}>{props.title}</li>  
+        const MenuItem  = ({title, clickHandler}) => (
+            <li onClick={() => clickHandler(title)}>{title}</li>  
         );
 
         class Menu extends React.Component {
@@ -47,7 +47,7 @@
                         {choices.map((el, i) => {
                             return <MenuItem key={i} title={el} clickHandler={this.onItemClick}/>
                         })}
-                        <label>Current Element: {this.currentChoice()}</label>
+                        <p>Current Element: {this.currentChoice()}</p>
                     </React.Fragment>
                     
                 )
