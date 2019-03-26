@@ -1,6 +1,6 @@
 # school.frontend-dev
 
-#React Menu
+# React Menu
 
 
 Realizzare un semplice menu con React che mostri tre elementi in una lista, "Mamma", "Babbo", "Zio".
