@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <title>Rect Menu</title>
+    </head>
+    <body>
+        <div id="root">
+
+        </div>
+    </body>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <script type="text/babel">
+        const MenuItem  = props => (
+            <li onClick={() => props.clickHandler(props.title)}>{props.title}</li>  
+        );
+
+        class Menu extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    currentChoice: "Mamma"
+                }
+                this.onItemClick = this.onItemClick.bind(this);
+            }
+
+            onItemClick(title) {
+                this.setState({currentChoice: title});
+            }
+
+            currentChoice() {
+                const {choices} = this.props;
+                const {currentChoice} = this.state;
+                if(choices.indexOf(currentChoice) !== -1) {
+                    return currentChoice;
+                }
+                return "Choice is not valid";
+            }
+
+            render() {
+                const {choices} = this.props;
+                return (
+                    <div>
+                        {choices.map((el, i) => {
+                            //return <li key={i} onClick={this.onItemClick}>{el}</li>
+                            return <MenuItem key={i} title={el} clickHandler={this.onItemClick}/>
+                        })}
+                        <label>Current Element: {this.currentChoice()}</label>
+                    </div>
+                    
+                )
+            }
+        }
+
+
+        const choices = ["Mamma", "Babbo", "Zio"];
+        ReactDOM.render(<Menu choices={choices}/>, document.getElementById('root'));
+    </script>
+</html>
