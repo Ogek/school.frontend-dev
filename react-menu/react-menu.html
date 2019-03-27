@@ -14,9 +14,7 @@
     
     <script type="text/babel">
 
-        const MenuItem  = ({title, clickHandler}) => (
-            <li onClick={() => clickHandler(title)}>{title}</li>  
-        );
+        const MenuItem  = ({title, clickHandler}) => <li onClick={() => clickHandler(title)}>{title}</li> ;
 
         class Menu extends React.Component {
             constructor(props) {
@@ -43,12 +41,12 @@
             render() {
                 const {choices} = this.props;
                 return (
-                    <React.Fragment>
-                        {choices.map((el, i) => {
-                            return <MenuItem key={i} title={el} clickHandler={this.onItemClick}/>
-                        })}
+                    <>
+                        {choices.map((el, i) => 
+                            <MenuItem key={i} title={el} clickHandler={this.onItemClick}/>
+                        )}
                         <p>Current Element: {this.currentChoice()}</p>
-                    </React.Fragment>
+                    </>
                     
                 )
             }
