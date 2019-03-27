@@ -22,24 +22,20 @@ class App extends Component {
   }
 
   addArticle(article) {
-    let res = true;
-    this.setState(state => {
-      const {articles} = state;
-      const exists = articles.findIndex((art) => art.title === article.title);
-      if(exists !== -1) {
-        res = false;
-        return {
-          error: 'Non è possibile inserire due articoli con lo stesso titolo'
-        }
-      }
-      article.id = this.generateArticleId();
-      return {
-        articles: [...articles, article],
-        error: null 
-      }
+    const {articles} = this.state;
+    const exists = articles.findIndex(art => art.title === article.title);
+    if(exists !== -1) {
+      this.setState({
+        error: 'Non è possibile inserire due articoli con lo stesso titolo'
+      });
+      return false;
+    }
+    article.id = this.generateArticleId();
+    this.setState({
+      articles: [...articles, article],
+      error: null 
     });
-
-    return res;
+    return true;
   }
 
   deleteArticle(id) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 
 class ArticleForm extends Component {
     constructor(props) {
@@ -52,6 +52,10 @@ class ArticleForm extends Component {
         );
     }
 
+}
+
+ArticleForm.propTypes = {
+    onSubmit: Function
 }
 
 export default ArticleForm;
