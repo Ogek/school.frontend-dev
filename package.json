@@ -1,0 +1,22 @@
+{
+  "name": "calculator-js-tdd",
+  "version": "1.0.0",
+  "description": "Toy implementation of js calculator using TDD pattern",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ogek/school.frontend-dev.git"
+  },
+  "author": "Giuseppe Chiarella",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ogek/school.frontend-dev/issues"
+  },
+  "homepage": "https://github.com/Ogek/school.frontend-dev#readme",
+  "devDependencies": {
+    "jest": "^24.7.1"
+  }
+}
