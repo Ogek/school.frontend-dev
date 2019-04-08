@@ -17,4 +17,15 @@ const sortArr = arr => {
   return arr;
 };
 
+/**
+ * Merge arrays
+ * @param {array} arr1
+ * @param {array} arr2
+ * @returns {array}
+ */
+const mergeArr = (arr1, arr2) => {
+  return [...new Set([...arr1, ...arr2])];
+};
+
 exports.sortArr = sortArr;
+exports.mergeArr = mergeArr;
