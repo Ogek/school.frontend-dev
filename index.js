@@ -1,5 +1,7 @@
 const execExpr = expr => {
   if (typeof expr !== "string") throw "expr must be string";
+  //remove spaces
+  expr = expr.replace(/\s/g, "");
   if (!checkExpr(expr)) throw "Invalid expr syntax";
   return eval(expr);
 };
