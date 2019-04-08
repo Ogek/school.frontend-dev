@@ -1,4 +1,4 @@
-const { sortArr } = require("./index.js");
+const { sortArr, mergeArr } = require("./index.js");
 
 /**
  * Check if array are equals (helper fot test)
@@ -6,7 +6,7 @@ const { sortArr } = require("./index.js");
  * @param {array} arr2
  */
 const arrEquals = (arr1, arr2) => {
-  if (arr1.lenght !== arr2.lenght) return false;
+  if (arr1.length !== arr2.length) return false;
   let i;
   for (i in arr1) {
     if (arr1[i] !== arr2[i]) return false;
@@ -14,21 +14,34 @@ const arrEquals = (arr1, arr2) => {
   return true;
 };
 
-// Tests
 (() => {
-  const tt = [
-    [[3, 2, 1], [1, 2, 3]],
-    [[10, 30, 20], [10, 20, 30]],
-    [[1, 4, 6], [4, 6, 1]]
-  ];
+  console.log("Tests for sort");
+  const tt = [[[3, 2, 1], [1, 2, 3]], [[10, 30, 20], [10, 20, 30]]];
   let arr,
-    sortedArr,
+    r,
     c = 0;
-  for ([arr, sortedArr] of tt) {
+  for ([arr, r] of tt) {
     c++;
     arr = sortArr(arr);
-    if (arrEquals(arr, sortedArr)) continue;
-    throw `Arrays ${arr} and ${sortedArr} are not equal!`;
+    if (arrEquals(arr, r)) continue;
+    throw `Arrays ${arr} and ${r} are not equal!`;
+  }
+  console.log("OK");
+  console.log(`${c} test processed`);
+})();
+
+(() => {
+  console.log("Test for merge");
+  const tt = [[[1, 2, 3], [3], [1, 2, 3]]];
+  let arr,
+    r,
+    c = 0,
+    tr;
+  for ([arr, arr2, r] of tt) {
+    c++;
+    tr = mergeArr(arr, arr2);
+    if (arrEquals(tr, r)) continue;
+    throw `Arrays ${tr} and ${r} are not equal!`;
   }
   console.log("OK");
   console.log(`${c} test processed`);
