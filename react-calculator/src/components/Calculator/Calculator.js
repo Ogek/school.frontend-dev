@@ -34,7 +34,7 @@ const Calculator = () => {
       const newExpr = eval(expr);
       setExpr(newExpr);
     } catch (e) {
-      alert(e.message);
+      alert("Error occured...");
     }
   };
 
