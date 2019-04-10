@@ -1,11 +1,11 @@
 import React from "react";
 
-const CalculatorDisplay = ({ expr, changeHandler, keyDownHandler }) => (
+const CalculatorDisplay = ({ input, changeHandler, keyPressHandler }) => (
   <input
-    value={expr}
+    value={input}
     type="text"
     onChange={e => changeHandler(e.target.value)}
-    onKeyDown={keyDownHandler}
+    onKeyPress={keyPressHandler}
     autoFocus={true}
   />
 );

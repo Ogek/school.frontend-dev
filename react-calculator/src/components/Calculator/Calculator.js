@@ -6,47 +6,94 @@ import styles from "./Calculator.module.scss";
 
 const Calculator = () => {
   const [expr, setExpr] = useState("");
+  const [input, setInput] = useState("");
+  const [history, setHistory] = useState([]);
 
-  //if enter is pressed (ENTER = 13)
-  const onEnterKeyDown = ({ keyCode }) => {
-    if (keyCode === 13) {
+  const EXPR_REG_EXP = new RegExp(/^(\d+(\.\d+)?)([+\-*/])(\d+(\.\d+)?)$/gm);
+  const NUMBER_REG_EXP = new RegExp(/^(\d+((\.)?(\d+)?)?)$/gm);
+  const OPERATOR_REG_EXP = new RegExp(/^[+\-*/]?$/gm);
+
+  const onKeyPress = ({ charCode }) => {
+    //if enter is pressed (ENTER = 13)
+    if (charCode === 13) {
       calcResult();
+      return;
+    }
+    const value = String.fromCharCode(charCode);
+    if (OPERATOR_REG_EXP.test(value)) {
+      onOperatorClick(value);
+      return;
     }
   };
 
-  const checkExpr = input => {
+  const checkExpr = expr => {
     if (typeof input !== "string") return false;
-    return input.match(/(\d+(\.\d+)?)(\+|-|\*|\/)(\d+(\.\d+)?)/gm);
+    const valid = EXPR_REG_EXP.test(expr);
+    return valid;
   };
 
-  const onDisplayChange = input => {
-    setExpr(input);
+  const checkInput = inp => {
+    return NUMBER_REG_EXP.test(inp);
   };
 
-  const onButtonClick = input => {
-    setExpr(expr + input);
+  const onDisplayChange = inp => {
+    if (inp !== "" && !checkInput(inp)) return false;
+    setInput(inp);
+  };
+
+  const onButtonClick = inp => {
+    const newInput = input + inp;
+    if (newInput !== "" && !checkInput(newInput)) return false;
+    setInput(newInput);
+  };
+
+  const onOperatorClick = inp => {
+    if (input === "") return false;
+    setExpr(`${input}${inp}`);
+    setInput("");
   };
 
   const calcResult = () => {
-    if (!checkExpr(expr)) return alert("Syntax error!!");
+    const newExpr = expr + input;
     try {
+      if (!checkExpr(newExpr)) throw new Error("Syntax error!!");
       // eslint-disable-next-line no-eval
-      const newExpr = eval(expr);
+      const res = eval(newExpr);
+      if (typeof res !== "number" || res === Infinity)
+        throw new Error("Error!");
+      setInput(res);
       setExpr(newExpr);
+      setHistory([{ expr: newExpr, res }, ...history]);
     } catch (e) {
-      alert("Error occured...");
+      alert(e.message);
     }
   };
 
   const onClearClick = () => {
-    setExpr("");
+    if (input !== "") {
+      setInput("");
+    } else {
+      setExpr("");
+    }
   };
 
   const buttons = [
-    { text: "+", clickHandler: onButtonClick },
-    { text: "-", clickHandler: onButtonClick },
-    { text: "*", clickHandler: onButtonClick },
-    { text: "/", clickHandler: onButtonClick },
+    {
+      text: "+",
+      clickHandler: onOperatorClick
+    },
+    {
+      text: "-",
+      clickHandler: onOperatorClick
+    },
+    {
+      text: "*",
+      clickHandler: onOperatorClick
+    },
+    {
+      text: "/",
+      clickHandler: onOperatorClick
+    },
     { text: "7", clickHandler: onButtonClick },
     { text: "8", clickHandler: onButtonClick },
     { text: "9", clickHandler: onButtonClick },
@@ -73,10 +120,11 @@ const Calculator = () => {
   return (
     <div className={styles.Calculator}>
       <div className={styles.CalculatorDisplayContainer}>
+        <span>{expr}</span>
         <CalculatorDisplay
-          expr={expr}
+          input={input}
           changeHandler={onDisplayChange}
-          keyDownHandler={onEnterKeyDown}
+          keyPressHandler={onKeyPress}
         />
       </div>
       <>
@@ -90,6 +138,11 @@ const Calculator = () => {
           </div>
         ))}
       </>
+      <ul>
+        {history.map(h => (
+          <li key={h.expr}>{`${h.expr}=${h.res}`}</li>
+        ))}
+      </ul>
     </div>
   );
 };
